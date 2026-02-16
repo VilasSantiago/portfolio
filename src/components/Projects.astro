@@ -1,0 +1,65 @@
+---
+// src/components/Projects.astro
+
+const projects = [
+  {
+    title: "El Impostor",
+    description: "Juego web de deducción. Lógica de estados compleja y UI interactiva.",
+    tags: ["Game Dev", "JS", "CSS"],
+    link: "#",
+    color: "from-red-900 to-red-600" // Color base para el placeholder
+  },
+  {
+    title: "Empresa de Bordados",
+    description: "Landing page comercial con galería optimizada y alto rendimiento en Lighthouse.",
+    tags: ["Astro", "Tailwind", "SEO"],
+    link: "#",
+    color: "from-blue-900 to-blue-600"
+  },
+  {
+    title: "Landing Pages Varias",
+    description: "Colección de componentes y páginas de aterrizaje enfocadas en conversión.",
+    tags: ["UI/UX", "Responsive"],
+    link: "#",
+    color: "from-emerald-900 to-emerald-600"
+  }
+];
+---
+
+<section id="proyectos" class="py-24">
+  <div class="container mx-auto px-6">
+    <h2 class="text-4xl font-bold mb-16 text-center">Proyectos <span class="text-primary">Destacados</span></h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {projects.map((project) => (
+        <article class="group relative bg-surface border border-white/10 rounded-xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]">
+            
+          <div class={`h-48 w-full bg-gradient-to-br ${project.color} relative overflow-hidden group-hover:scale-105 transition-transform duration-500`}>
+             <div class="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-[2px]">
+                <span class="text-white/80 font-mono text-sm border border-white/30 px-3 py-1 rounded-full">
+                    Preview 400x300
+                </span>
+             </div>
+          </div>
+
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2 text-white group-hover:text-primary transition-colors">{project.title}</h3>
+            <p class="text-gray-400 text-sm mb-4 line-clamp-2">{project.description}</p>
+            
+            <div class="flex flex-wrap gap-2 mb-6">
+              {project.tags.map((tag) => (
+                <span class="text-xs font-mono text-primary bg-primary/10 px-2 py-1 rounded">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            
+            <a href={project.link} class="text-sm font-bold text-white flex items-center gap-2 hover:gap-3 transition-all">
+              Ver Proyecto <span>→</span>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
