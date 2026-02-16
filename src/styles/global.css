@@ -1,36 +1,85 @@
 @import "tailwindcss";
 
-:root {
-  /* Base - Gris Oscuro / Negro Profundo */
-  --color-bg: 10 10 10;       /* #0a0a0a */
-  --color-surface: 23 23 23;  /* #171717 */
+/* 1. Importación de Fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap');
+
+/* 2. Configuración del Tema (Reemplaza tailwind.config.mjs) */
+@theme {
+  /* -- Paleta de Colores Futurista -- */
+  
+  /* Fondo casi negro para profundidad */
+  --color-background: #0a0a0a; 
+  
+  /* Superficies (tarjetas, paneles) */
+  --color-surface: #171717;     
+  
+  /* El Violeta Principal (Tu color de marca) */
+  --color-primary: #8b5cf6;     /* violet-500 */
+  --color-primary-hover: #7c3aed;
+  
+  /* Violeta Suave para detalles */
+  --color-secondary: #a78bfa;   /* violet-400 */
+  
+  /* Acento oscuro para sombras y profundidad */
+  --color-accent: #4c1d95;      /* violet-900 */
   
   /* Textos */
-  --color-text-main: 229 231 235; /* gray-200 */
-  --color-text-muted: 156 163 175; /* gray-400 */
+  --color-text-main: #e5e7eb;   /* gray-200 */
+  --color-text-muted: #9ca3af;  /* gray-400 */
 
-  /* Acento - Violeta / Morado Eléctrico */
-  --color-primary: 139 92 246;   /* violet-500 */
-  --color-secondary: 167 139 250; /* violet-400 */
-  --color-accent: 76 29 149;     /* violet-900 */
+  /* -- Tipografía -- */
+  --font-sans: ['Inter', system-ui, sans-serif];
+  --font-mono: ['Fira Code', monospace];
+
+  /* -- Animaciones Personalizadas -- */
+  --animate-blob: blob 7s infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
 }
 
-body {
-  background-color: rgb(var(--color-bg));
-  color: rgb(var(--color-text-main));
+/* 3. Estilos Base y Utilidades */
+@layer base {
+  body {
+    @apply bg-background text-text-main antialiased overflow-x-hidden selection:bg-primary selection:text-white;
+  }
+  
+  /* Títulos con tracking ajustado para impacto */
+  h1, h2, h3, h4 {
+    @apply tracking-tight;
+  }
 }
 
-/* Utilidad para degradados de texto futuristas */
-.text-gradient {
-  background: linear-gradient(to right, rgb(var(--color-primary)), rgb(var(--color-secondary)));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+@layer utilities {
+  /* Gradiente de Texto Cyberpunk */
+  .text-gradient {
+    background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
 
-/* Grid de fondo sutil */
-.bg-grid {
-  background-size: 40px 40px;
-  background-image: linear-gradient(to right, rgb(var(--color-surface)) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgb(var(--color-surface)) 1px, transparent 1px);
-  mask-image: radial-gradient(circle at center, black, transparent 80%);
+  /* Fondo de cuadrícula sutil (Grid) */
+  .bg-grid {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at center, black, transparent 80%);
+  }
+  
+  /* Efecto Glassmorphism */
+  .glass {
+    @apply bg-surface/30 backdrop-blur-md border border-white/10;
+  }
 }
